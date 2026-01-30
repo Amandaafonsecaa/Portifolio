@@ -1,53 +1,105 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 export default function Skill() {
   const hardSkills = [
-    "Generative AI", "React", "Machine Learning", 
-    "Fullstack Dev", "Node.js", "TypeScript", "UI/UX"
+    "Generative AI",
+    "Machine Learning",
+    "Fullstack Dev",
+    "UI/UX",
   ];
 
   const softSkills = [
-    "Problem Solving", "Organization", "Tech Adaptability", 
-    "Effective Communication", "Adaptability", "Critical Thinking"
+    "Organization",
+    "Tech Adaptability",
+    "Communication",
+    "Critical Thinking",
   ];
 
+  const container: Variants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.15,
+      },
+    },
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, y: 14 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  const title: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
   return (
-    <section className="relative h-auto min-h-[500px] w-full bg-black overflow-hidden py-20">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+    <section className="relative min-h-[500px] w-full bg-black overflow-hidden py-20">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
 
-      <div className="relative z-10 text-center mb-16">
+      {/* TÍTULO */}
+      <motion.div
+        className="relative z-10 text-center mb-16"
+        variants={title}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <h2 className="text-white font-impact text-5xl uppercase tracking-tighter">
-          My <span className="text-[#ffd230] font-sans normal-case italic">Skills</span> Toolbox
+          My{" "}
+          <span className="text-[#ffd230] font-sans normal-case italic">
+            Skills
+          </span>{" "}
+          Toolbox
         </h2>
-      </div>
+      </motion.div>
 
-      {/* Ajustado: gap-x-3 para ganhar espaço e max-w-6xl para dar mais margem lateral */}
-      <div className="relative z-10 flex flex-wrap justify-center gap-x-3 gap-y-6 max-w-6xl mx-auto px-6">
-        
+      {/* SKILLS */}
+      <motion.div
+        className="relative z-10 flex flex-wrap justify-center gap-x-3 gap-y-6 max-w-6xl mx-auto px-6"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {hardSkills.map((skill, index) => (
           <motion.div
             key={`hard-${index}`}
+            variants={item}
             drag
             dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
             dragElastic={0.5}
             whileHover={{ scale: 1.05 }}
             animate={{ rotate: index % 2 === 0 ? 3 : -4 }}
-            whileDrag={{ scale: 1.1, rotate: 0, zIndex: 100 }} 
-            // Reduzi levemente o px-5 para caber melhor na linha
+            whileDrag={{ scale: 1.1, rotate: 0, zIndex: 100 }}
             className="px-5 py-2 bg-white rounded-full cursor-grab active:cursor-grabbing text-black font-bold border border-gray-200 shadow-sm whitespace-nowrap"
           >
             {skill}
           </motion.div>
         ))}
 
-        {/* Separador invisível para forçar a quebra se você quiser as soft skills SEMPRE embaixo */}
-        <div className="w-full h-0"></div>
+        <div className="w-full h-0" />
 
         {softSkills.map((skill, index) => (
           <motion.div
             key={`soft-${index}`}
+            variants={item}
             drag
-            whileHover={{ backgroundColor: "#ffd230", color: "#000", scale: 1.05 }}
+            whileHover={{
+              backgroundColor: "#ffd230",
+              color: "#000",
+              scale: 1.05,
+            }}
             dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
             dragElastic={0.5}
             animate={{ rotate: index % 2 === 0 ? -3 : 5 }}
@@ -57,7 +109,7 @@ export default function Skill() {
             {skill}
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

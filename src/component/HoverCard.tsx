@@ -38,7 +38,7 @@ const HoverCard = ({ title, category, image, tags }: CardProps) => {
         </div>
 
         <div className="mt-5 text-[11px] text-white/70 font-bold uppercase tracking-widest hover:text-white transition-colors">
-          Ver detalhes —
+          See solution
         </div>
       </div>
     </div>
