@@ -1,18 +1,22 @@
 import { motion, type Variants } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export default function Skill() {
+  const { t } = useTranslation();
+
   const hardSkills = [
-    "Generative AI",
-    "Machine Learning",
-    "Fullstack Dev",
-    "UI/UX",
+    t("skills.stack.react"),
+    t("skills.stack.node"),
+    t("skills.stack.spring"),
+    t("skills.stack.fullstack"),
+    t("skills.stack.uiux"),
   ];
 
   const softSkills = [
-    "Organization",
-    "Tech Adaptability",
-    "Communication",
-    "Critical Thinking",
+    t("skills.soft.organization"),
+    t("skills.soft.adaptability"),
+    t("skills.soft.communication"),
+    t("skills.soft.critical"),
   ];
 
   const container: Variants = {
@@ -56,11 +60,11 @@ export default function Skill() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <h2 className="text-white font-impact text-5xl uppercase tracking-tighter">
-          My{" "}
+          {t("skills.titleMain")}{" "}
           <span className="text-[#ffd230] font-sans normal-case italic">
-            Skills
+            {t("skills.titleHighlight")}
           </span>{" "}
-          Toolbox
+          {t("skills.titleEnd")}
         </h2>
       </motion.div>
 

@@ -1,0 +1,100 @@
+{
+  "hero": {
+    "smallLeft": "eu",
+    "smallRight": "sou",
+    "big": "DESENVOLVEDORA",
+    "cta": "BAIXAR MEU CV",
+    "subtitle": "Desenvolvedora Frontend"
+  },
+
+  "skills": {
+    "titleMain": "Stack",
+    "titleHighlight": "Tecnológica",
+    "titleEnd": "",
+    "stack": {
+      "react": "React",
+      "node": "Node.js",
+      "spring": "Spring Boot",
+      "fullstack": "Fullstack Dev",
+      "uiux": "UI/UX"
+    },
+    "soft": {
+      "organization": "Organização",
+      "adaptability": "Adaptabilidade",
+      "communication": "Comunicação",
+      "critical": "Pensamento Crítico"
+    }
+  },
+
+  "projects": {
+    "headlineStart": "Essas skills ganham vida em projetos",
+    "headlineHighlight": "do mundo real",
+    "headlineEnd": "",
+    "cta": "VER MAIS...",
+    "uniquadra": {
+      "category": "Centralizando agendamentos esportivos para estudantes."
+    },
+    "vetcare": {
+      "category": "Reduzindo processos manuais em pequenas clínicas."
+    },
+    "zeus": {
+      "category": "Controle de finanças para pets."
+    },
+    "prisma": {
+      "category": "Plataforma para pesquisadores realizarem estudos IAT."
+    },
+    "proforma": {
+      "category": "Design de landing page."
+    }
+  },
+
+  "journey": {
+    "titleA": "MINHA",
+    "titleB": "Jornada",
+    "titleC": "Acadêmica e",
+    "titleD": "PROFISSIONAL",
+    "education": {
+      "degree": "Bacharelado em Ciência da Computação",
+      "institution": "UNIFOR",
+      "description": "Foco em IA e Arquitetura de Software."
+    },
+    "highschool": {
+      "degree": "Ensino Médio Técnico",
+      "institution": "IFCE",
+      "description": "Redes de Computadores"
+    },
+    "nexus": {
+      "title": "Bolsista de Engenharia de IA | Nexus AI",
+      "institution": "Instituto Atlântico",
+      "description": "Desenvolvimento de agentes generativos com RAG."
+    },
+    "cosmos": {
+      "title": "Desenvolvedora Frontend | COSMOS Tech",
+      "institution": "COSMOS Tech",
+      "description": "Construindo interfaces do protótipo ao código de produção."
+    },
+    "prisma": {
+      "title": "Desenvolvedora Fullstack | PRISMA",
+      "institution": "UNIFOR",
+      "description": "Plataforma para pesquisa em neuromarketing e testes IAT."
+    },
+    "research": {
+      "title": "Bolsista de Iniciação Científica | PIBIC Jr.",
+      "institution": "IFCE",
+      "description": "Técnicas de Machine Learning para detecção de intrusão em IoT."
+    }
+  },
+
+  "about": {
+    "title": "Eu sou Amanda",
+    "p1Start": "Tenho forte interesse em",
+    "p1Highlight": "frontend",
+    "p1End": "desde o início da minha jornada em tecnologia.",
+    "p2Start": "Tanto que, para ter uma ideia, aos meus 18 anos desenvolvia",
+    "p2Highlight": "landing pages",
+    "p2End": "no meu tempo livre.",
+    "p3Start": "Atualmente estou expandindo para a área de",
+    "p3Highlight": "IA",
+    "p3End": "onde descobri grande afinidade e paixão."
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "hero": {
+    "smallLeft": "i'm",
+    "smallRight": "a",
+    "big": "DEVELLLLOPER",
+    "cta": "DOWNLOAD MY CV",
+    "subtitle": "Frontend-focused Developer"
+  },
+
+  "skills": {
+    "titleMain": "MY",
+    "titleHighlight": "Skills",
+    "titleEnd": "TOOLBOX",
+    "stack": {
+      "react": "React",
+      "node": "Node.js",
+      "spring": "Spring Boot",
+      "fullstack": "Fullstack Dev",
+      "uiux": "UI/UX"
+    },
+    "soft": {
+      "organization": "Organization",
+      "adaptability": "Tech Adaptability",
+      "communication": "Communication",
+      "critical": "Critical Thinking"
+    }
+  },
+
+  "projects": {
+    "headlineStart": "These skills come to life in",
+    "headlineHighlight": "real-world",
+    "headlineEnd": "projects",
+    "cta": "SEE MORE...",
+    "uniquadra": {
+      "category": "Centralizing sports scheduling for students."
+    },
+    "vetcare": {
+      "category": "Reducing manual workflows for small clinics."
+    },
+    "zeus": {
+      "category": "Pet finance control management."
+    },
+    "prisma": {
+      "category": "Enabling researchers to run IAT studies through an intuitive platform."
+    },
+    "proforma": {
+      "category": "Landing page design."
+    }
+  },
+
+  "journey": {
+    "microTitle": "ACADÊMICA e PROFISSIONAL",
+    "titleA": "MY",
+    "titleB": "Academic and",
+    "titleC": "Professional",
+    "titleD": "JOURNEY",
+    "education": {
+      "degree": "B.S. in Computer Science",
+      "institution": "UNIFOR",
+      "description": "Focusing on AI and Software Architecture."
+    },
+     "highschool": {
+      "degree": "High School Diploma",
+      "institution": "IFCE",
+      "description": "Computer Network"
+    },
+    "nexus": {
+      "title": "AI Engineering Fellow | Nexus AI",
+      "institution": "Instituto Atlântico",
+      "description": "Developing generative AI agents using RAG."
+    },
+    "cosmos": {
+      "title": "Frontend Developer | COSMOS Tech",
+      "institution": "COSMOS Tech",
+      "description": "Building designs from prototype to production code."
+    },
+    "prisma": {
+      "title": "Fullstack Developer | PRISMA",
+      "institution": "UNIFOR",
+      "description": "Developed a platform for neuromarketing research and IAT testing."
+    },
+    "research": {
+      "title": "Scientific Research Fellow | PIBIC Jr.",
+      "institution": "IFCE",
+      "description": "Machine learning techniques for intrusion detection in IoT environments."
+    }
+  },
+
+  "about": {
+    "title": "I'm Amanda",
+    "p1Start": "I've been deeply interested in",
+    "p1Highlight": "frontend development",
+    "p1End": "since the beginning of my journey in tech.",
+    "p2Start": "I fell in love with it instantly, and by the age of 18, I was already building",
+    "p2Highlight": "landing pages",
+    "p2End": "in my free time.",
+    "p3Start": "Currently, I'm expanding into the field of",
+    "p3Highlight": "AI",
+    "p3End": "where I've discovered a strong affinity and growing passion."
+  }
+}

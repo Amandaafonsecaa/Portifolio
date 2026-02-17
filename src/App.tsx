@@ -12,8 +12,8 @@ function App() {
     <>
       <Banner />
       <Skill />
+       <Projects />
       <Formation />
-      <Projects />
       <KnowMe />
     </>
   )

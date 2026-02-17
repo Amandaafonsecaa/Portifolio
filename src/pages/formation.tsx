@@ -1,47 +1,12 @@
 import { motion, type Variants } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import Card from "../component/Card";
 import iconAcademic from "../assets/icon/iconAcademic.png";
 import iconWork from "../assets/icon/iconWork.png";
 
-const educationData = [
-  {
-    year: "2023 – Present",
-    title: "B.S. in Computer Science",
-    institution: "UNIFOR",
-    description: "Focusing on AI and Software Architecture.",
-  },
-  {
-    year: "2020 – 2023",
-    title: "High School Diploma",
-    institution: "IFCE",
-    description: "Computer Network.",
-  },
-];
-
-const workData = [
-  {
-    year: "2024 – 2025",
-    title: "AI Engineering Fellow | Nexus AI",
-    institution: "Instituto Atlântico",
-    description: "Developing Generative AI agents to article filtering.",
-  },
-  {
-    year: "2025",
-    title: "Fullstack Developer | PRISMA",
-    institution: "UNIFOR",
-    description: "Developed a platform for Neuromarketing research and IAT testing.",
-    link: "#",
-  },
-  {
-    year: "2021 – 2022",
-    title: "Scientific Research Fellow | PIBIC Jr.",
-    institution: "IFCE",
-    description: "Machine Learning techniques for intrusion detection in IoT environments.",
-    link: "#",
-  },
-];
-
 export default function Formation() {
+  const { t } = useTranslation();
+
   const fadeUp: Variants = {
     hidden: { opacity: 0, y: 14 },
     show: {
@@ -58,6 +23,52 @@ export default function Formation() {
     },
   };
 
+  // Dados de educação vindos das traduções - AGORA COMPLETO
+  const educationData = [
+    {
+      year: "2023 – Present",
+      title: t("journey.education.degree"),
+      institution: t("journey.education.institution"),
+      description: t("journey.education.description"),
+    },
+    {
+      year: "2020 – 2023",
+      title: t("journey.highschool.degree"),
+      institution: t("journey.highschool.institution"),
+      description: t("journey.highschool.description"),
+    },
+  ];
+
+  // Dados de trabalho vindos das traduções
+  const workData = [
+    {
+      year: "2024 – 2025",
+      title: t("journey.nexus.title"),
+      institution: t("journey.nexus.institution"),
+      description: t("journey.nexus.description"),
+    },
+    {
+      year: "2024 – Present",
+      title: t("journey.cosmos.title"),
+      institution: t("journey.cosmos.institution"),
+      description: t("journey.cosmos.description"),
+    },
+    {
+      year: "2025",
+      title: t("journey.prisma.title"),
+      institution: t("journey.prisma.institution"),
+      description: t("journey.prisma.description"),
+      link: "#",
+    },
+    {
+      year: "2021 – 2022",
+      title: t("journey.research.title"),
+      institution: t("journey.research.institution"),
+      description: t("journey.research.description"),
+      link: "#",
+    },
+  ];
+
   return (
     <section className="relative w-full min-h-screen bg-white py-20">
       {/* Fundo */}
@@ -72,7 +83,7 @@ export default function Formation() {
           whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
         >
-          Education & Work
+          {t("journey.microTitle")}
         </motion.p>
 
         {/* Título */}
@@ -83,11 +94,11 @@ export default function Formation() {
           whileInView="show"
           viewport={{ once: true, amount: 0.35 }}
         >
-          My{" "}
+          {t("journey.titleA")}{" "}
           <span className="text-[#ffd230] font-sans normal-case font-thin">
-            Academic and <br /> Professional
+            {t("journey.titleB")} <br /> {t("journey.titleC")}
           </span>{" "}
-          Journey
+          {t("journey.titleD")}
         </motion.h1>
 
         {/* Colunas */}
