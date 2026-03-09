@@ -57,11 +57,11 @@ export default function KnowMe() {
       </div>
 
       {/* CONTEÚDO */}
-      <div className="relative z-10 max-w-7xl mx-auto pt-[140px] px-6">
-        <div className="flex items-center gap-12">
+      <div className="relative z-10 max-w-7xl mx-auto pt-[120px] px-6">
+        <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* BLOCO ESQUERDO (stagger nos itens) */}
           <motion.div
-            className="flex flex-col flex-1 gap-8 max-w-[560px]"
+            className="flex flex-col flex-1 gap-8 max-w-[560px] w-full"
             variants={container}
             initial="hidden"
             whileInView="show"
@@ -103,7 +103,10 @@ export default function KnowMe() {
             </motion.p>
 
             {/* REDES SOCIAIS */}
-            <motion.div variants={item} className="flex gap-10 items-center">
+            <motion.div
+              variants={item}
+              className="flex gap-8 flex-wrap items-center justify-center lg:justify-start"
+            >
               <a
                 href="https://github.com/Amandaafonsecaa"
                 target="_blank"
@@ -142,7 +145,7 @@ export default function KnowMe() {
 
           {/* IMAGEM DIREITA - POLAROID */}
           <motion.div
-            className="flex-1 flex items-center justify-end pr-10"
+            className="flex-1 flex items-center justify-center lg:justify-end lg:pr-10 mt-10 lg:mt-0"
             variants={rightItem}
             initial="hidden"
             whileInView="show"
@@ -151,7 +154,7 @@ export default function KnowMe() {
             <motion.img
               src={Polaroid}
               alt="Polaroid"
-              className="w-[380px] object-contain cursor-pointer"
+              className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] object-contain cursor-pointer"
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             />

@@ -39,7 +39,7 @@ export default function Banner() {
   };
 
   return (
-    <section className="relative w-full h-screen overflow-hidden mx-auto">
+    <section className="relative w-full min-h-screen overflow-hidden mx-auto">
 
       {/* ── Botão de idioma — canto superior direito ── */}
       <motion.div
@@ -69,18 +69,17 @@ export default function Banner() {
 
       {/* Conteúdo principal com stagger */}
       <motion.section
-        className="relative z-19 flex flex-col items-center"
+        className="relative z-19 flex flex-col items-center pt-24 sm:pt-28 md:pt-32"
         variants={container}
         initial="hidden"
         animate="show"
       >
-        {/* Top line: i'm  a */}
+        {/* Top line: "eu sou" mais próximo e parecido em tamanho com "desenvolvedora" */}
         <motion.div
-          className="flex gap-40 absolute top-40 font-title text-5xl md:text-7xl z-20 italic"
+          className="flex items-center justify-center gap-2 sm:gap-3 absolute inset-x-0 top-[22%] sm:top-[20%] md:top-[18%] font-title text-[8vw] sm:text-[7vw] md:text-[4vw] z-20 italic px-4"
           variants={itemUp}
         >
           <span>{t("hero.smallLeft")}</span>
-          <span className="opacity-0">L</span>
           <span>{t("hero.smallRight")}</span>
         </motion.div>
 
@@ -88,7 +87,7 @@ export default function Banner() {
         <motion.div className="relative" variants={itemUp}>
           <img
             src={foto}
-            className="relative w-[700px] z-10"
+            className="relative z-10 w-full max-w-[280px] sm:max-w-[360px] md:max-w-[480px] lg:max-w-[700px]"
             alt="Photo of the developer"
           />
         </motion.div>
@@ -96,13 +95,13 @@ export default function Banner() {
 
       {/* Título grande atrás */}
       <motion.section
-        className="flex items-center justify-center"
+        className="flex items-center justify-center px-4"
         initial="hidden"
         animate="show"
         variants={container}
       >
         <motion.h1
-          className="font-impact text-[5vw] text-[#ffd230] z-0 top-60 absolute"
+          className="font-impact text-[11vw] sm:text-[8vw] md:text-[5vw] text-[#ffd230] z-0 absolute inset-x-0 top-1/2 -translate-y-1/2 text-center leading-none"
           variants={bigTitle}
         >
           {t("hero.big")}
@@ -111,7 +110,7 @@ export default function Banner() {
 
       {/* Botão CV + subtitle */}
       <motion.section
-        className="z-20 bottom-15 left-0 right-0 mx-auto absolute flex flex-col items-center justify-center"
+        className="z-20 bottom-10 md:bottom-16 left-0 right-0 mx-auto absolute flex flex-col items-center justify-center px-4 text-center"
         initial={{ opacity: 0, y: 14 }}
         animate={{
           opacity: 1,
@@ -128,7 +127,7 @@ export default function Banner() {
             link.click();
           }}
         />
-        <motion.p className="mt-4 text-black/70 text-sm tracking-[0.22em]">
+        <motion.p className="mt-4 text-black/70 text-xs sm:text-sm tracking-[0.22em]">
           {t("hero.subtitle")}
         </motion.p>
       </motion.section>

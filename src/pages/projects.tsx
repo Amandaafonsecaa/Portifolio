@@ -28,25 +28,25 @@ export default function Projects() {
   };
 
   return (
-    <section className="w-full min-h-screen pb-5 px-6">
-      <section className="flex items-center gap-10 min-h-screen">
+    <section className="w-full min-h-screen pb-5 px-6 pt-20 md:pt-28 lg:pt-32">
+      <section className="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:min-h-screen">
         {/* ESQUERDA */}
         <motion.section
-          className="flex-[1] text-3xl text-start text-center"
+          className="flex-[1] w-full text-2xl sm:text-3xl text-center lg:text-left"
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.35 }}
         >
-          <section className="flex-col items-center justify-center">
-              <section className="flex items-center gap-3 justify-center">
+          <section className="flex flex-col items-center lg:items-start justify-center">
+              <section className="flex items-center gap-3 justify-center lg:justify-start">
               <h2 className="font-sans font-thin text-[#545454]">
                 {t("projects.headlineStart")} <span className="font-impact text-[#ffd230] underline decoration-[#ffd230]">
                   {t("projects.headlineHighlight")}
               </span> {t("projects.headlineEnd")}
               </h2>
             </section>
-            <section className="pt-8 flex items-center justify-center">
+            <section className="pt-8 flex items-center justify-center lg:justify-start">
               <Button text={t("projects.cta")} variant="filled" onClick={() => alert("Oi")} />
             </section>
           </section>
@@ -55,7 +55,7 @@ export default function Projects() {
 
         {/* DIREITA */}
         <section className="flex-[2] w-full">
-          <section className="relative rounded-l-[32px] bg-black px-6 py-20 max-h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden">
+          <section className="relative rounded-3xl lg:rounded-l-[32px] bg-black px-4 sm:px-6 py-10 lg:py-20 max-h-full lg:max-h-[calc(100vh-80px)] overflow-y-visible lg:overflow-y-auto overflow-x-hidden">
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
 
             <motion.div
