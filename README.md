@@ -4,6 +4,10 @@ Portfólio pessoal de Amanda Fonseca, desenvolvedora Full-Stack com foco em expe
 
 O projeto apresenta trabalhos selecionados, competências técnicas, trajetória acadêmica e experiência profissional em uma interface editorial, responsiva e bilíngue.
 
+## Site publicado
+
+**[Acessar o portfólio](https://amanda-fonseca-portfolio.joaopedroabm.chatgpt.site)**
+
 ## Destaques
 
 - Experiência completa em português e inglês
