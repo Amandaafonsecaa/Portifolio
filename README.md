@@ -6,7 +6,7 @@ O projeto apresenta trabalhos selecionados, competências técnicas, trajetória
 
 ## Site publicado
 
-**[Acessar o portfólio](https://amanda-fonseca-portfolio.joaopedroabm.chatgpt.site)**
+**[Acessar o portfólio](https://amanda-fonseca-portifolio.joaopedroabm.chatgpt.site)**
 
 ## Destaques
 
