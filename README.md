@@ -1,75 +1,49 @@
-# React + TypeScript + Vite
+# Amanda Fonseca — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfólio pessoal de Amanda Fonseca, desenvolvedora Full-Stack com foco em experiências digitais, engenharia de software e inteligência artificial.
 
-Currently, two official plugins are available:
+O projeto apresenta trabalhos selecionados, competências técnicas, trajetória acadêmica e experiência profissional em uma interface editorial, responsiva e bilíngue.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Destaques
 
-## React Compiler
+- Experiência completa em português e inglês
+- Projetos apresentados como estudos de caso
+- Links diretos para repositórios públicos
+- Animações sutis e navegação fluida
+- Layout responsivo para desktop, tablet e celular
+- Currículo disponível para download
+- Preferência de redução de movimento respeitada
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Projetos apresentados
 
-Note: This will impact Vite dev & build performances.
+- **UniQuadra** — centralização de agendamentos esportivos para estudantes
+- **VetCare** — gestão de clínicas veterinárias e redução de processos manuais
+- **Zeus** — organização e acompanhamento de finanças para pets
+- **Prisma** — plataforma privada para pesquisas e testes de associação implícita
 
-## Expanding the ESLint configuration
+## Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+React, TypeScript, Vite, Tailwind CSS, Framer Motion, i18next e React Icons.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Executando localmente
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Para gerar a versão de produção:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
 ```
+
+## Contato
+
+- [LinkedIn](https://www.linkedin.com/in/amanda-fonseca-b4189426b/)
+- [GitHub](https://github.com/Amandaafonsecaa)
+- [E-mail](mailto:amandafonsecarod09@gmail.com)
+
+---
+
+Desenvolvido com atenção aos detalhes por **Amanda Fonseca**.
