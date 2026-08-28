@@ -94,7 +94,7 @@ export default function Formation() {
 
         {/* Título */}
         <motion.h1
-          className="text-black text-center font-impact text-5xl uppercase leading-none mb-16"
+          className="w-full max-w-full px-2 text-black text-center font-impact text-[clamp(1.75rem,8.5vw,3rem)] sm:text-5xl uppercase leading-[1.06] break-words mb-16"
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
