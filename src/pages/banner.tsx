@@ -8,7 +8,7 @@ export default function Banner() {
   const photoY = useTransform(scrollYProgress, [0, 1], [0, 110]);
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -55]);
   const isEN = i18n.language.startsWith("en");
-  const cvUrl = `${import.meta.env.BASE_URL}cv/cv_amanda_fullstack.pdf`;
+  const cvUrl = `${import.meta.env.BASE_URL}cv/Amanda_Fonseca_Curriculo.pdf`;
 
   return (
     <section id="inicio" className="hero-shell">
