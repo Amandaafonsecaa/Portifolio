@@ -42,13 +42,19 @@ export default function Formation() {
   // Dados de trabalho vindos das traduções
   const workData = [
     {
-      year: "2024 – 2025",
+      year: "2026 – Present",
       title: t("journey.nexus.title"),
       institution: t("journey.nexus.institution"),
       description: t("journey.nexus.description"),
     },
     {
-      year: "2024 – Present",
+      year: "2026 – Present",
+      title: t("journey.pet.title"),
+      institution: t("journey.pet.institution"),
+      description: t("journey.pet.description"),
+    },
+    {
+      year: "2025 – Present",
       title: t("journey.cosmos.title"),
       institution: t("journey.cosmos.institution"),
       description: t("journey.cosmos.description"),
@@ -70,7 +76,7 @@ export default function Formation() {
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-white py-20">
+    <section id="trajetoria" className="relative w-full min-h-screen bg-white py-20">
       {/* Fundo */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_90%_98%_at_7%_0%,#000_70%,transparent_110%)]" />
 

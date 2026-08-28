@@ -1,4 +1,33 @@
 {
+  "nav": {
+    "projects": "Projetos",
+    "expertise": "Expertise",
+    "journey": "Trajetória",
+    "about": "Sobre"
+  },
+  "portfolioHero": {
+    "eyebrow": "Desenvolvedora Full-Stack · Fortaleza, Brasil",
+    "line1": "Eu transformo ideias",
+    "line2": "em experiências",
+    "highlight": "digitais.",
+    "description": "Construo produtos digitais unindo interfaces intuitivas, engenharia de software e inteligência artificial.",
+    "projectsCta": "Ver projetos",
+    "cvCta": "Baixar CV",
+    "explore": "Explore"
+  },
+  "expertise": {
+    "label": "Expertise",
+    "title1": "Design sensível.",
+    "title2": "Código sólido.",
+    "description": "Atuo entre frontend, backend, inteligência artificial e produto para criar experiências rápidas, acessíveis e relevantes para pessoas e negócios."
+  },
+  "projectsShowcase": {
+    "label": "Projetos selecionados",
+    "title1": "Trabalho que une",
+    "title2": "forma e função.",
+    "github": "Ver código no GitHub",
+    "private": "Projeto privado · código fechado"
+  },
   "hero": {
     "smallLeft": "eu",
     "smallRight": "sou",
@@ -53,6 +82,7 @@
     "titleB": "Jornada",
     "titleC": "Acadêmica e",
     "titleD": "PROFISSIONAL",
+    "microTitle": "ACADÊMICA E PROFISSIONAL",
     "education": {
       "degree": "Bacharelado em Ciência da Computação",
       "institution": "UNIFOR",
@@ -64,29 +94,35 @@
       "description": "Redes de Computadores"
     },
     "nexus": {
-      "title": "Bolsista de Engenharia de IA | Nexus AI",
+      "title": "Bolsista de Inovação | Software e IA",
       "institution": "Instituto Atlântico",
-      "description": "Desenvolvimento de agentes generativos com RAG."
+      "description": "Nexus AI, agentes inteligentes com RAG, análise de requisitos e desenvolvimento de soluções para inovação industrial."
+    },
+    "pet": {
+      "title": "Bolsista | PET-Saúde Digital",
+      "institution": "Universidade de Fortaleza (Unifor)",
+      "description": "Desenvolvimento do Painel Eletrônico de Chamadas para otimizar o fluxo de pacientes na saúde pública."
     },
     "cosmos": {
       "title": "Desenvolvedora Frontend | COSMOS Tech",
       "institution": "COSMOS Tech",
-      "description": "Construindo interfaces do protótipo ao código de produção."
+      "description": "Desenvolvimento com React e TypeScript, integração com APIs REST e contribuições full-stack em produto baseado em IA."
     },
     "prisma": {
       "title": "Desenvolvedora Fullstack | PRISMA",
       "institution": "UNIFOR",
-      "description": "Plataforma para pesquisa em neuromarketing e testes IAT."
+      "description": "Liderança de três desenvolvedoras e construção full-stack de software psicométrico para testes IAT."
     },
     "research": {
       "title": "Bolsista de Iniciação Científica | PIBIC Jr.",
       "institution": "IFCE",
-      "description": "Técnicas de Machine Learning para detecção de intrusão em IoT."
+      "description": "Machine Learning com Python e Scikit-learn para detecção de intrusões em ambientes IoT."
     }
   },
 
   "about": {
     "title": "Eu sou Amanda",
+    "photoAlt": "Amanda Fonseca usando um vestido amarelo",
     "p1Start": "Tenho forte interesse em",
     "p1Highlight": "frontend",
     "p1End": "desde o início da minha jornada em tecnologia.",

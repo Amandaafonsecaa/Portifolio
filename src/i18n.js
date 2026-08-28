@@ -12,7 +12,10 @@ i18n
       escapeValue: false   // React já protege contra XSS
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json'
+      loadPath: '/locales/{{lng}}/translation.json?v=20260828-2',
+      requestOptions: {
+        cache: 'no-store'
+      }
     }
   });
 

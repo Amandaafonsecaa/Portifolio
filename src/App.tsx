@@ -11,8 +11,8 @@ function App() {
   return (
     <>
       <Banner />
+      <Projects />
       <Skill />
-       <Projects />
       <Formation />
       <KnowMe />
     </>

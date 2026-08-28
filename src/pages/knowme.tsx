@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 import about_me from "../assets/about_me.png";
-import Polaroid from "../assets/polaroid.png";
+import yellowPhoto from "../assets/foto-amarelo.jpeg";
 
 export default function KnowMe() {
   const { t } = useTranslation();
@@ -40,7 +40,7 @@ export default function KnowMe() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden pt-16 pb-18 bg-[#0a0909]">
+    <section id="sobre" className="relative w-full overflow-hidden pt-16 pb-18 bg-[#0a0909]">
       {/* WAVE TOPO */}
       <div className="absolute top-0 left-0 w-full leading-none z-0">
         <svg
@@ -145,16 +145,16 @@ export default function KnowMe() {
 
           {/* IMAGEM DIREITA - POLAROID */}
           <motion.div
-            className="flex-1 flex items-center justify-center lg:justify-end lg:pr-10 mt-10 lg:mt-0"
+            className="flex-1 flex items-center justify-center lg:justify-end lg:pr-10 mt-20 lg:mt-24"
             variants={rightItem}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.35 }}
           >
             <motion.img
-              src={Polaroid}
-              alt="Polaroid"
-              className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] object-contain cursor-pointer"
+              src={yellowPhoto}
+              alt={t("about.photoAlt")}
+              className="w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] aspect-[3/4] object-cover object-top rounded-[2rem] cursor-pointer shadow-[0_35px_90px_rgba(0,0,0,0.45)] border border-white/10"
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             />

@@ -1,4 +1,33 @@
 {
+  "nav": {
+    "projects": "Projects",
+    "expertise": "Expertise",
+    "journey": "Journey",
+    "about": "About"
+  },
+  "portfolioHero": {
+    "eyebrow": "Full-Stack Developer · Fortaleza, Brazil",
+    "line1": "I turn ideas",
+    "line2": "into digital",
+    "highlight": "experiences.",
+    "description": "I build digital products by combining intuitive interfaces, software engineering, and artificial intelligence.",
+    "projectsCta": "View projects",
+    "cvCta": "Download CV",
+    "explore": "Explore"
+  },
+  "expertise": {
+    "label": "Expertise",
+    "title1": "Thoughtful design.",
+    "title2": "Solid code.",
+    "description": "I work across frontend, backend, artificial intelligence, and product to create fast, accessible experiences that matter to people and businesses."
+  },
+  "projectsShowcase": {
+    "label": "Selected projects",
+    "title1": "Work that blends",
+    "title2": "form and function.",
+    "github": "View code on GitHub",
+    "private": "Private project · closed source"
+  },
   "hero": {
     "smallLeft": "i'm",
     "smallRight": "a",
@@ -65,29 +94,35 @@
       "description": "Computer Network"
     },
     "nexus": {
-      "title": "AI Engineering Fellow | Nexus AI",
+      "title": "Innovation Fellow | Software & AI",
       "institution": "Instituto Atlântico",
-      "description": "Developing generative AI agents using RAG."
+      "description": "Nexus AI, intelligent agents with RAG, requirements analysis, and software solutions for industrial innovation."
+    },
+    "pet": {
+      "title": "Fellow | PET Digital Health",
+      "institution": "University of Fortaleza (Unifor)",
+      "description": "Developing an electronic calling panel to improve patient flow in Brazil's public healthcare system."
     },
     "cosmos": {
       "title": "Frontend Developer | COSMOS Tech",
       "institution": "COSMOS Tech",
-      "description": "Building designs from prototype to production code."
+      "description": "React and TypeScript development, REST API integration, and full-stack contributions to an AI-powered product."
     },
     "prisma": {
       "title": "Fullstack Developer | PRISMA",
       "institution": "UNIFOR",
-      "description": "Developed a platform for neuromarketing research and IAT testing."
+      "description": "Led three developers and built a full-stack psychometric platform for IAT research."
     },
     "research": {
       "title": "Scientific Research Fellow | PIBIC Jr.",
       "institution": "IFCE",
-      "description": "Machine learning techniques for intrusion detection in IoT environments."
+      "description": "Machine Learning with Python and Scikit-learn for intrusion detection in IoT environments."
     }
   },
 
   "about": {
     "title": "I'm Amanda",
+    "photoAlt": "Amanda Fonseca wearing a yellow dress",
     "p1Start": "I've been deeply interested in",
     "p1Highlight": "frontend development",
     "p1End": "since the beginning of my journey in tech.",
