@@ -37,9 +37,9 @@ export default function KnowMe() {
         </svg>
       </div>
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-6 pt-[clamp(120px,15vw,210px)] lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center justify-items-center lg:justify-items-stretch gap-14 px-6 pt-[clamp(120px,15vw,210px)] lg:grid-cols-[1.05fr_1fr] lg:gap-16">
         {/* TEXTO */}
-        <div className="flex min-w-0 flex-col gap-8">
+        <div className="flex min-w-0 flex-col items-center gap-8 text-center lg:items-start lg:text-left">
           <RansomTitle text={t("about.title")} />
 
           <motion.p
@@ -65,7 +65,7 @@ export default function KnowMe() {
           </motion.p>
 
           {/* REDES SOCIAIS */}
-          <motion.ul className="flex flex-wrap gap-3" variants={fadeUp} custom={0.7} initial="hidden" whileInView="show" viewport={{ once: true }}>
+          <motion.ul className="flex flex-wrap justify-center gap-3 lg:justify-start" variants={fadeUp} custom={0.7} initial="hidden" whileInView="show" viewport={{ once: true }}>
             {socials.map(({ href, label, Icon }) => (
               <li key={label}>
                 <motion.a

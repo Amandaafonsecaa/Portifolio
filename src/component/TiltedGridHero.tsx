@@ -49,6 +49,19 @@ function arc(bend: number) {
 // shows its neighbours instead of one tile edge to edge.
 const MAX_WIDTH = 55;
 
+// Abaixo desta largura a faixa vira uma esteira reta, sem curva nem 3D.
+const FLAT_QUERY = "(max-width: 940px)";
+// na esteira reta os cards são maiores (mais altos e mais largos) e andam mais devagar
+const FLAT_TILE = 64;
+const FLAT_MAX_WIDTH = 82;
+const FLAT_SLOWDOWN = 1.8;
+
+function subscribeFlat(onChange: () => void) {
+  const query = window.matchMedia(FLAT_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
 /**
  * Lays the loop on the cylinder. The radius puts the frame's edge `bend`
  * radians round the arc (see `arc`). Angles come back in degrees: `unit`
@@ -65,11 +78,21 @@ function measure(
   aspect: number,
   gap: number,
   bend: number,
+  flat = false,
 ) {
   const h = Math.min(
     (tile / 100) * height,
-    ((MAX_WIDTH / 100) * width) / aspect,
+    (((flat ? FLAT_MAX_WIDTH : MAX_WIDTH) / 100) * width) / aspect,
   );
+  if (flat) {
+    // esteira reta: as "unidades" passam a ser alturas de tile, não graus
+    if (!(h > 0)) return { columns: 2, sweep: 0, unit: 0, limit: 0 };
+    const pitch = aspect + gap / 100;
+    const limit = width / (2 * h) + aspect / 2;
+    const columns = Math.min(60, Math.max(2, Math.ceil((2 * limit) / pitch)));
+    const sweep = +((columns * pitch) / 2).toFixed(4);
+    return { columns, sweep, unit: 1, limit: +Math.min(sweep, limit).toFixed(4) };
+  }
   const radius = width * arc(bend);
   if (!(h > 0) || !(radius > 0))
     return { columns: 2, sweep: 0, unit: 0, limit: 0 };
@@ -139,8 +162,8 @@ export function TiltedGridHero({
   items,
   linkLabel,
   privateLabel,
-  speed = 4,
-  tileHeight = 26,
+  speed: speedProp = 4,
+  tileHeight: tileHeightProp = 26,
   aspectRatio = 16 / 9,
   gap = 6,
   axis = 56,
@@ -157,6 +180,14 @@ export function TiltedGridHero({
   const band = `tgh-b-${id}`;
   const reveal = `tgh-r-${id}`;
   const bend = (Math.min(85, Math.max(5, curve)) * Math.PI) / 180;
+  const flat = React.useSyncExternalStore(
+    subscribeFlat,
+    () => window.matchMedia(FLAT_QUERY).matches,
+    () => false,
+  );
+  const tileHeight = flat ? Math.max(tileHeightProp, FLAT_TILE) : tileHeightProp;
+  const speed = flat ? speedProp * FLAT_SLOWDOWN : speedProp;
+  const maxWidth = flat ? FLAT_MAX_WIDTH : MAX_WIDTH;
 
   // Null until the observer has measured the hero. The band stays hidden
   // until then, so a first paint laid out for the wrong size never shows.
@@ -177,7 +208,7 @@ export function TiltedGridHero({
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect;
-      const next = measure(width, height, tileHeight, aspectRatio, gap, bend);
+      const next = measure(width, height, tileHeight, aspectRatio, gap, bend, flat);
       setLayout((prev) =>
         prev?.columns === next.columns &&
         prev.sweep === next.sweep &&
@@ -188,7 +219,7 @@ export function TiltedGridHero({
     });
     ro.observe(el);
     return () => ro.disconnect();
-  }, [tileHeight, aspectRatio, gap, bend]);
+  }, [tileHeight, aspectRatio, gap, bend, flat]);
 
   // Fetch every image up front. A tile picks up its next one just before
   // it comes back into view, too late to start loading it then.
@@ -197,21 +228,24 @@ export function TiltedGridHero({
   }, [items]);
 
   const { columns, sweep, unit, limit } =
-    layout ?? measure(1200, 560, tileHeight, aspectRatio, gap, bend);
+    layout ?? measure(1200, 560, tileHeight, aspectRatio, gap, bend, flat);
 
   // Every length is a multiple of the tile's height, which follows the
   // hero's height until MAX_WIDTH caps it on narrow screens.
   const u = (n: number) =>
     `calc(${+n.toFixed(4)} * min(${tileHeight}cqh, ${+(
-      MAX_WIDTH / aspectRatio
+      maxWidth / aspectRatio
     ).toFixed(4)}cqw))`;
 
   const r = 100 * arc(bend);
   const radius = `${+r.toFixed(3)}cqw`;
   // Out to the axis, round it, back in: a box sits on the cylinder at the
   // angle rotateY gives it.
+  // No modo reto, o mesmo deslocamento vira um translateX puro.
   const turn = (deg: number) =>
-    `translateZ(${radius}) rotateY(${+deg.toFixed(4)}deg) translateZ(-${radius})`;
+    flat
+      ? `translateX(calc(-1 * ${u(deg)}))`
+      : `translateZ(${radius}) rotateY(${+deg.toFixed(4)}deg) translateZ(-${radius})`;
 
   // Beyond `limit` a tile is wholly off-screen, so it is hidden there. The
   // loop's ends, where it wraps, fall inside that stretch, and so do tiles
@@ -219,7 +253,10 @@ export function TiltedGridHero({
   const hide = +(((sweep - limit) / (2 * sweep || 1)) * 100).toFixed(4);
   const css =
     `@keyframes ${orbit}{` +
-    `from{transform:${turn(-sweep)}}to{transform:${turn(sweep)}}` +
+    (flat
+      ? // esteira reta: o card cresce ao passar pelo centro e encolhe nas pontas
+        `from{transform:${turn(-sweep)} scale(.82)}50%{transform:${turn(0)} scale(1)}to{transform:${turn(sweep)} scale(.82)}`
+      : `from{transform:${turn(-sweep)}}to{transform:${turn(sweep)}}`) +
     `0%,${hide}%,${100 - hide}%,100%{visibility:hidden}` +
     `${hide + 0.001}%,${100 - hide - 0.001}%{visibility:visible}}` +
     // Pausing rather than removing the motion keeps the band whole: every
@@ -254,7 +291,7 @@ export function TiltedGridHero({
           opacity: layout ? 1 : 0,
           // A shared vanishing point on the row's centre line, so the ends
           // grow evenly above and below it as they come toward the viewer.
-          perspective: `${+(r * CAMERA).toFixed(3)}cqw`,
+          perspective: flat ? "none" : `${+(r * CAMERA).toFixed(3)}cqw`,
           perspectiveOrigin: `50% ${axis}%`,
           maskImage: mask,
           WebkitMaskImage: mask,

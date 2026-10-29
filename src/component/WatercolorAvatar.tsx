@@ -13,6 +13,9 @@ import portrait from "../assets/avatar-aquarela.jpg";
 
 // coordenadas na ilustração original (736 × 736)
 const SIZE = 736;
+// recorte do viewBox: a máscara de papel (44px) menos a folga da borda ondulada
+const INSET_X = 22;
+const INSET_Y = 20;
 const SKIN = "#fddac4";
 const LEFT_EYE = { cx: 319, cy: 395, rx: 21, ry: 50 };
 const RIGHT_EYE = { cx: 450, cy: 390, rx: 19, ry: 46 };
@@ -163,9 +166,10 @@ export default function WatercolorAvatar({ label }: WatercolorAvatarProps) {
       aria-label={label}
       onPointerEnter={(event) => event.pointerType === "mouse" && play()}
       onClick={play}
-      className="relative mx-auto block w-full max-w-[480px] cursor-pointer rounded-[2rem] outline-none focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-[#ffd230]"
+      className="relative block w-full max-w-[480px] mx-auto lg:mr-0 lg:ml-auto cursor-pointer rounded-[2rem] outline-none focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-[#ffd230]"
     >
-      <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="block h-auto w-full overflow-visible" aria-hidden="true">
+      {/* viewBox recortado na área pintada: a borda visível coincide com a caixa e alinha com o texto */}
+      <svg viewBox={`${INSET_X} ${INSET_Y} ${SIZE - 2 * INSET_X} ${SIZE - 2 * INSET_Y}`} className="block h-auto w-full overflow-visible" aria-hidden="true">
         <defs>
           {/* borda de papel de aquarela: retângulo deformado e esfumado */}
           <filter id={edge} x="-10%" y="-10%" width="120%" height="120%">
@@ -174,7 +178,7 @@ export default function WatercolorAvatar({ label }: WatercolorAvatarProps) {
             <feGaussianBlur in="wobble" stdDeviation="7" />
           </filter>
           <mask id={paper} maskUnits="userSpaceOnUse" x="0" y="0" width={SIZE} height={SIZE}>
-            <rect x="44" y="40" width={SIZE - 88} height={SIZE - 84} rx="40" fill="#fff" filter={`url(#${edge})`} />
+            <rect x="44" y="42" width={SIZE - 88} height={SIZE - 84} rx="40" fill="#fff" filter={`url(#${edge})`} />
           </mask>
           {/* tinta que escorre: manchas da explosão */}
           <filter id={bleed} x="-60%" y="-60%" width="220%" height="220%">
