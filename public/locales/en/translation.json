@@ -61,16 +61,13 @@
     "headlineEnd": "projects",
     "cta": "SEE MORE...",
     "uniquadra": {
-      "category": "Centralizing sports scheduling for students."
+      "category": "Sports scheduling and management platform for Unifor, developed as a large-scale academic project, with a sports catalog and digital membership cards. Node.js back end with object-oriented architecture."
     },
-    "vetcare": {
-      "category": "Reducing manual workflows for small clinics."
+    "farminghabit": {
+      "category": "Gamified habit platform with a farming RPG theme, original pixel art, consistency heatmaps, and a progression system."
     },
-    "zeus": {
-      "category": "Pet finance control management."
-    },
-    "prisma": {
-      "category": "Enabling researchers to run IAT studies through an intuitive platform."
+    "nexus": {
+      "category": "Front-end Tech Lead: code reviews, task allocation, and validation. Focus on front-end architecture and integration with the project’s AI."
     },
     "proforma": {
       "category": "Landing page design."

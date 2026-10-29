@@ -1,16 +1,14 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import TiltedGridHero, { type TiltedGridProject } from "../component/TiltedGridHero";
-import vetCareImg from "../assets/vetcare.png";
-import zeusImg from "../assets/zeus.png";
+import farmingHabitImg from "../assets/FarminHabit.png";
 import prismaImg from "../assets/prisma-fullscreen.png";
 import uniquadraImg from "../assets/uniquadra.png";
 
 const projects = [
-  { title: "UniQuadra", key: "uniquadra", image: uniquadraImg, tags: ["React", "Motion", "Product Design"], repo: "https://github.com/Amandaafonsecaa/UniQuadra" },
-  { title: "VetCare", key: "vetcare", image: vetCareImg, tags: ["React", "Node.js", "Sequelize"], repo: "https://github.com/Amandaafonsecaa/PetShop" },
-  { title: "Zeus", key: "zeus", image: zeusImg, tags: ["React", "MongoDB", "Node.js"], repo: "https://github.com/Amandaafonsecaa/Zeus-Web" },
-  { title: "Prisma", key: "prisma", image: prismaImg, tags: ["Research", "MySQL", "React"], repo: null },
+  { title: "UniQuadra", key: "uniquadra", image: uniquadraImg, tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Node.js"], repo: "https://github.com/Amandaafonsecaa/UniQuadra" },
+  { title: "FarmingHabit", key: "farminghabit", image: farmingHabitImg, tags: ["React 19", "Tailwind CSS v4", "Supabase Auth/Sync"], repo: "https://github.com/Amandaafonsecaa/FarmingHabit" },
+  { title: "Nexus", key: "nexus", image: prismaImg, tags: ["React"], repo: null },
 ];
 
 export default function Projects() {

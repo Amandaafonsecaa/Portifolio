@@ -61,16 +61,13 @@
     "headlineEnd": "",
     "cta": "VER MAIS...",
     "uniquadra": {
-      "category": "Centralizando agendamentos esportivos para estudantes."
+      "category": "Plataforma de agendamento e gestão esportiva para a Unifor, desenvolvida como projeto acadêmico de grande escala, com catálogo de modalidades e emissão de carteirinha digital. Back-end Node.js com arquitetura orientada a objetos."
     },
-    "vetcare": {
-      "category": "Reduzindo processos manuais em pequenas clínicas."
+    "farminghabit": {
+      "category": "Plataforma gamificada de hábitos com tema RPG de fazenda, pixel art autoral, heatmaps de constância e sistema de progressão."
     },
-    "zeus": {
-      "category": "Controle de finanças para pets."
-    },
-    "prisma": {
-      "category": "Plataforma para pesquisadores realizarem estudos IAT."
+    "nexus": {
+      "category": "Tech Lead de Front-end: code reviews, divisão de tasks e validações. Foco em arquitetura front-end e integração com a IA do projeto."
     },
     "proforma": {
       "category": "Design de landing page."
