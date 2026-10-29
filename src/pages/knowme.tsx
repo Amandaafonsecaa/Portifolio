@@ -4,8 +4,8 @@ import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import type { IconType } from "react-icons";
 
-import ByteGame from "../component/ByteGame";
 import RansomTitle from "../component/RansomTitle";
+import WatercolorAvatar from "../component/WatercolorAvatar";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -86,9 +86,9 @@ export default function KnowMe() {
           </motion.ul>
         </div>
 
-        {/* MINI-GAME */}
+        {/* AUTORRETRATO EM AQUARELA */}
         <motion.div variants={fadeUp} custom={0.3} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-          <ByteGame />
+          <WatercolorAvatar label={t("about.avatarLabel")} />
         </motion.div>
       </div>
     </section>

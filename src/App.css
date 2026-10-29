@@ -51,7 +51,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .typewriter-caret{display:inline-block;width:.06em;height:.8em;margin-left:.06em;vertical-align:-.05em;background:#d5aa00;animation:caret-blink 1s steps(1) infinite}
 @keyframes caret-blink{50%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.typewriter-caret{animation:none}}
-/* sobre: título em recortes, redes sociais e o mini-game BYTE.exe */
+/* sobre: título em recortes e redes sociais */
 .ransom-title{container-type:inline-size;min-width:0;width:100%;margin:0;padding:16px;overflow:visible;line-height:1;cursor:pointer;user-select:none}
 .ransom-title>span{filter:drop-shadow(0 8px 10px rgba(0,0,0,.45))}
 .ransom-letter{display:inline-block;padding:.06em .16em .1em;line-height:1}
@@ -59,23 +59,3 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .social-chip{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.03);color:#eee;font:500 14px Inter,sans-serif;transition:background-color .25s,color .25s,border-color .25s}
 .social-chip svg{font-size:19px}
 .social-chip:hover,.social-chip:focus-visible{background:#ffd230;border-color:#ffd230;color:#111;outline:none}
-.byte-console{max-width:520px;margin-inline:auto;padding:14px;border:3px solid #2b2840;border-radius:14px;background:#17151f;font-family:"Press Start 2P",monospace;box-shadow:0 0 0 3px #0a0909,0 30px 80px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.04)}
-.byte-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#ffd230;font-size:10px}
-.byte-dots{display:flex;gap:5px}.byte-dots i{width:8px;height:8px;background:#ff5d5d}.byte-dots i:nth-child(2){background:#ffd230}.byte-dots i:nth-child(3){background:#7fd1ae}
-.byte-loc{margin-left:auto;color:#9a96b8;font-size:8px}
-.byte-screen{position:relative;overflow:hidden;border:3px solid #0a0909;border-radius:6px;box-shadow:0 0 0 2px #2b2840}
-.byte-bubble{position:absolute;top:62%;left:30%;transform:translate(-50%,-100%);pointer-events:none}
-.byte-bubble span{display:block;position:relative;padding:7px 9px;border:2px solid #2b2118;background:#fff8e7;color:#2b2118;font-size:8px;line-height:1.5;white-space:nowrap;box-shadow:3px 3px 0 #2b2118;animation:byte-pop .25s steps(3)}
-.byte-bubble span:after{content:"";position:absolute;left:50%;bottom:-8px;width:8px;height:6px;background:#2b2118;clip-path:polygon(0 0,100% 0,0 100%)}
-@keyframes byte-pop{from{opacity:0;transform:translateY(6px) scale(.7)}}
-.byte-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.byte-stat{display:flex;flex-direction:column;gap:7px;color:#c9c6e0;font-size:8px}
-.byte-bar{display:flex;gap:2px}.byte-bar i{flex:1;height:10px;background:#2b2840}.byte-bar i.on{background:#7fd1ae}.byte-stat+.byte-stat .byte-bar i.on{background:#ff8fa3}
-.byte-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
-.byte-button{display:flex;flex-direction:column;align-items:center;gap:7px;padding:11px 4px 12px;border:0;border-radius:4px;background:#2b2840;color:#fff8e7;font:inherit;font-size:8px;cursor:pointer;box-shadow:inset 0 -4px 0 #1b1930,0 0 0 2px #0a0909;transition:transform .08s,background-color .2s,color .2s}
-.byte-button span{font-size:13px;line-height:1}
-.byte-button:hover{background:#ffd230;color:#111;box-shadow:inset 0 -4px 0 #c9a200,0 0 0 2px #0a0909}
-.byte-button:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 #c9a200,0 0 0 2px #0a0909}
-.byte-button:focus-visible{outline:2px solid #ffd230;outline-offset:3px}
-@media(max-width:420px){.byte-actions{grid-template-columns:repeat(2,1fr)}}
-@media(prefers-reduced-motion:reduce){.byte-bubble span{animation:none}}
