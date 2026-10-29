@@ -28,7 +28,6 @@ export default function Banner() {
         <motion.div className="hero-actions" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .8 }}><a className="primary-action" href="#projetos">{t("portfolioHero.projectsCta")} <span>↘</span></a><a className="secondary-action" href={cvUrl} download="Amanda_Fonseca_CV.pdf">{t("portfolioHero.cvCta")}</a></motion.div>
       </div>
       <div className="hero-badge"><IdBadge /></div>
-      <div className="scroll-cue"><span /> {t("portfolioHero.explore")}</div>
     </section>
   );
 }

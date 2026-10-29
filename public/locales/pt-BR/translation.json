@@ -12,8 +12,8 @@
     "highlight": "digitais.",
     "description": "Construo produtos digitais unindo interfaces intuitivas, engenharia de software e inteligência artificial.",
     "projectsCta": "Ver projetos",
-    "cvCta": "Baixar CV",
-    "explore": "Explore"
+    "cvCta": "Baixar CV"
+
   },
   "expertise": {
     "label": "Expertise",
@@ -26,7 +26,8 @@
     "title1": "Trabalho que une",
     "title2": "forma e função.",
     "github": "Ver código no GitHub",
-    "private": "Projeto privado · código fechado"
+    "private": "Projeto privado · código fechado",
+    "galleryLabel": "Galeria de projetos"
   },
   "hero": {
     "smallLeft": "eu",

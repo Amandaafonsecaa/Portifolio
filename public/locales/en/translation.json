@@ -12,8 +12,8 @@
     "highlight": "experiences.",
     "description": "I build digital products by combining intuitive interfaces, software engineering, and artificial intelligence.",
     "projectsCta": "View projects",
-    "cvCta": "Download CV",
-    "explore": "Explore"
+    "cvCta": "Download CV"
+
   },
   "expertise": {
     "label": "Expertise",
@@ -26,7 +26,8 @@
     "title1": "Work that blends",
     "title2": "form and function.",
     "github": "View code on GitHub",
-    "private": "Private project · closed source"
+    "private": "Private project · closed source",
+    "galleryLabel": "Project gallery"
   },
   "hero": {
     "smallLeft": "i'm",
