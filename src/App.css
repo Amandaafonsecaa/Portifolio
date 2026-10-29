@@ -18,7 +18,23 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-badge{position:absolute;z-index:4;top:-60px;right:clamp(0px,7vw,140px)}
 
 
-.capabilities-section{background:#101010;color:white;padding:clamp(90px,13vw,190px) clamp(24px,7vw,110px);display:grid;grid-template-columns:1.25fr 1fr;gap:10vw;align-items:end}.capabilities-intro h2{font-size:clamp(50px,6.5vw,100px);margin:28px 0 38px}.capabilities-intro p{max-width:540px;color:#aaa;font:400 17px/1.7 Inter,sans-serif}.capabilities-section .section-index{color:#777}.skill-cloud{display:flex;flex-wrap:wrap;gap:12px;align-content:flex-end}.skill-cloud span{border:1px solid #3a3a3a;border-radius:999px;padding:13px 20px;font:500 13px Inter,sans-serif;background:#171717;cursor:default;transition:border-color .25s,color .25s}.skill-cloud span:hover{border-color:#ffd230;color:#ffd230}
+.capabilities-section{position:relative;isolation:isolate;overflow:hidden;--mx:50%;--my:50%;background:#101010;color:white;padding:clamp(90px,13vw,190px) clamp(24px,7vw,110px);display:grid;grid-template-columns:1.25fr 1fr;gap:10vw;align-items:end}.capabilities-intro h2{font-size:clamp(50px,6.5vw,100px);margin:28px 0 38px}.capabilities-intro p{max-width:540px;color:#aaa;font:400 17px/1.7 Inter,sans-serif}.capabilities-section .section-index{color:#777}.skill-cloud{display:flex;flex-wrap:wrap;gap:12px;align-content:flex-end;list-style:none;margin:0;padding:0}
+/* expertise: luz ambiente, spotlight no cursor e pílulas magnéticas */
+.capabilities-intro,.skill-cloud{position:relative;z-index:1}
+.expertise-light{position:absolute;inset:0;z-index:0;pointer-events:none}
+.expertise-aurora{position:absolute;width:60vw;max-width:820px;aspect-ratio:1;left:-15%;bottom:-35%;border-radius:50%;background:radial-gradient(circle,rgba(255,210,48,.16),transparent 65%);filter:blur(40px);animation:expertise-drift 16s ease-in-out infinite alternate}
+@keyframes expertise-drift{to{translate:18vw -6vw;scale:1.15}}
+.expertise-spotlight{position:absolute;inset:0;background:radial-gradient(520px circle at var(--mx) var(--my),rgba(255,210,48,.09),transparent 60%);opacity:0;transition:opacity .5s}
+.expertise-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.18) 1px,transparent 1.5px);background-size:24px 24px;-webkit-mask-image:radial-gradient(240px circle at var(--mx) var(--my),#000,transparent 75%);mask-image:radial-gradient(240px circle at var(--mx) var(--my),#000,transparent 75%);opacity:0;transition:opacity .5s}
+.capabilities-section:hover .expertise-spotlight,.capabilities-section:hover .expertise-dots{opacity:1}
+.reveal-word{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.expertise-em{position:relative;display:inline-block}.expertise-underline{position:absolute;left:0;bottom:-.04em;width:100%;height:.2em;overflow:visible;color:#ffd230}
+.magnetic-pill{position:relative;display:inline-flex;align-items:center;gap:10px;border:1px solid #3a3a3a;border-radius:999px;padding:13px 20px;font:500 13px Inter,sans-serif;background:#171717;color:#e8e8e8;cursor:default;transition:color .3s,background-color .3s}
+.magnetic-pill i{font:600 9px Inter,sans-serif;font-style:normal;letter-spacing:.1em;color:#5f5f5f;transition:color .3s}
+.magnetic-pill:before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:radial-gradient(90px circle at var(--px,50%) var(--py,50%),#ffd230,transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
+.skill-cloud li:hover .magnetic-pill{color:#ffd230;background:#1b1a14}.skill-cloud li:hover .magnetic-pill:before{opacity:1}.skill-cloud li:hover .magnetic-pill i{color:rgba(255,210,48,.6)}
+@media(hover:none){.expertise-spotlight,.expertise-dots{display:none}}
+@media(prefers-reduced-motion:reduce){.expertise-aurora{animation:none}}
 .projects-section{position:relative;z-index:1;isolation:isolate;overflow:hidden;padding:clamp(32px,4vw,56px) clamp(24px,5vw,80px) clamp(48px,6vw,88px);background:#f5f5f2}.projects-heading{margin-bottom:clamp(24px,3vw,40px)}.projects-heading h2{font-size:clamp(52px,7vw,105px);max-width:1050px}
 
 @media(max-width:900px){.hero-shell{min-height:0}.nav-links{display:none}.hero-copy{padding-top:70px}.hero-copy h1{font-size:clamp(49px,12vw,82px)}.hero-description{max-width:80%}.hero-badge{position:relative;top:auto;right:auto;display:flex;justify-content:center;margin:-60px 0 24px}.capabilities-section{grid-template-columns:1fr;gap:70px}}
