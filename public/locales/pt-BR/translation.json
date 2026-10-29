@@ -134,7 +134,28 @@
     "p2End": "no meu tempo livre.",
     "p3Start": "Atualmente estou expandindo para a área de",
     "p3Highlight": "IA",
-    "p3End": "onde descobri grande afinidade e paixão."
+    "p3End": "onde descobri grande afinidade e paixão.",
+    "game": {
+      "loc": "linhas",
+      "canvasLabel": "Byte, um gato programador em pixel art, no quarto dele à noite.",
+      "energy": "Energia",
+      "happiness": "Alegria",
+      "feed": "Café",
+      "pet": "Carinho",
+      "play": "Brincar",
+      "code": "Codar",
+      "bubbles": {
+        "hello": "Oi! Sou o Byte. Bora codar?",
+        "feed": "Café! ☕",
+        "pet": "Purrr ♥",
+        "play": "O novelo!!",
+        "code": "Compilando...",
+        "shipped": "+{{count}} linhas no ar!",
+        "tired": "Sem energia... café?",
+        "sleep": "Zzz... (me dá café)",
+        "bored": "Tô entediado..."
+      }
+    }
   },
   "badge": {
     "name": "Amanda Fonseca",

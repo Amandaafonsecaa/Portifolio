@@ -134,7 +134,28 @@
     "p2End": "in my free time.",
     "p3Start": "Currently, I'm expanding into the field of",
     "p3Highlight": "AI",
-    "p3End": "where I've discovered a strong affinity and growing passion."
+    "p3End": "where I've discovered a strong affinity and growing passion.",
+    "game": {
+      "loc": "lines",
+      "canvasLabel": "Byte, a pixel-art programmer cat, in his room at night.",
+      "energy": "Energy",
+      "happiness": "Joy",
+      "feed": "Coffee",
+      "pet": "Pet",
+      "play": "Play",
+      "code": "Code",
+      "bubbles": {
+        "hello": "Hi! I'm Byte. Wanna code?",
+        "feed": "Coffee! ☕",
+        "pet": "Purrr ♥",
+        "play": "Yarn!!",
+        "code": "Compiling...",
+        "shipped": "+{{count}} lines shipped!",
+        "tired": "Too tired... coffee?",
+        "sleep": "Zzz... (coffee pls)",
+        "bored": "So bored..."
+      }
+    }
   },
   "badge": {
     "name": "Amanda Fonseca",

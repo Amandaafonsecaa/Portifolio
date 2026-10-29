@@ -1,9 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import HttpBackend from 'i18next-http-backend';
+import en from '../public/locales/en/translation.json';
+import ptBR from '../public/locales/pt-BR/translation.json';
 
 i18n
-  .use(HttpBackend)
   .use(initReactI18next)
   .init({
     lng: 'en',          // idioma padrão ao abrir
@@ -11,11 +11,10 @@ i18n
     interpolation: {
       escapeValue: false   // React já protege contra XSS
     },
-    backend: {
-      loadPath: `${import.meta.env.BASE_URL}locales/{{lng}}/translation.json?v=20260828-2`,
-      requestOptions: {
-        cache: 'no-store'
-      }
+    // Bundle both languages so UI labels never depend on a separate HTTP request.
+    resources: {
+      en: { translation: en },
+      'pt-BR': { translation: ptBR }
     }
   });
 
