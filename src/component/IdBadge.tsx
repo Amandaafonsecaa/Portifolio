@@ -1,173 +1,283 @@
-import {
-  animate,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from "framer-motion";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useReducedMotion } from "framer-motion";
+import { useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 import photo from "../assets/foto-amarelo.jpeg";
+import {
+  BOTTOM_LEFT,
+  BOTTOM_RIGHT,
+  CARD_W,
+  RING,
+  STEP,
+  TOP,
+  buildRig,
+  cardWeights,
+  nearestRopePoint,
+  nudge,
+  step,
+  type Grab,
+  type Rig,
+} from "./badgePhysics";
 
-// distância entre o ponto de fixação do cordão e o topo do crachá
-const STRAP_LENGTH = 300;
-const STRAP_WIDTH = 30;
-const CARD_WIDTH = 280;
 const STACK = ["React", "TypeScript", "Node.js", "NestJS", "Python", "Docker", "Tailwind CSS"];
+const STRAP_TEXT = "AMANDA FONSECA ✦ ".repeat(14);
+// passos seguidos quase parados antes de o sistema "dormir"
+const SLEEP_AFTER = 90;
 
 export default function IdBadge() {
   const { t } = useTranslation();
   const reduceMotion = useReducedMotion();
+  const strapId = `strap-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   const [flipped, setFlipped] = useState(false);
-  const dragged = useRef(false);
 
-  // começa deslocado para balançar depois da queda
-  const x = useMotionValue(reduceMotion ? 0 : 70);
-  const y = useMotionValue(0);
+  const stage = useRef<HTMLDivElement>(null);
+  const strapPath = useRef<SVGPathElement>(null);
+  const clip = useRef<SVGGElement>(null);
+  const card = useRef<HTMLDivElement>(null);
+  const tiltLayer = useRef<HTMLDivElement>(null);
 
-  // o cordão sempre liga o ponto fixo ao clipe do crachá
-  const strapAngle = useTransform([x, y], ([lx, ly]: number[]) => (-Math.atan2(lx, STRAP_LENGTH + ly) * 180) / Math.PI);
-  const strapLength = useTransform([x, y], ([lx, ly]: number[]) => Math.hypot(lx, STRAP_LENGTH + ly));
-  const badgeRotate = useSpring(strapAngle, { stiffness: 260, damping: 14 });
+  const rig = useRef<Rig | null>(null);
+  const grab = useRef<Grab | null>(null);
+  const press = useRef({ x: 0, y: 0, time: 0 });
+  const awake = useRef(true);
 
-  // inclinação 3D proporcional à velocidade + rotação do flip
-  const tilt = useSpring(useTransform(useVelocity(x), [-1500, 1500], [-28, 28]), { stiffness: 200, damping: 20 });
-  const flip = useSpring(0, { stiffness: 90, damping: 14 });
-  const rotateY = useTransform([flip, tilt], ([f, tl]: number[]) => f + tl);
-
+  // simulação: passo fixo, render direto no DOM (sem re-render do React)
   useEffect(() => {
-    if (reduceMotion) return;
-    const swing = animate(x, 0, { type: "spring", stiffness: 60, damping: 4, delay: 0.9 });
-    return () => swing.stop();
-  }, [reduceMotion, x]);
+    const el = stage.current;
+    if (!el) return;
+    let frame = 0;
+    let last = performance.now();
+    let acc = 0;
+    let still = 0;
+    let tilt = 0;
+    let visible = true;
+    let size = { w: 0, h: 0 };
 
-  const toggle = () => {
-    const next = !flipped;
-    setFlipped(next);
-    flip.set(next ? 180 : 0);
+    const render = (system: Rig) => {
+      const p = system.points;
+      // fita: curva suave pelos pontos médios
+      let d = `M${p[0].x.toFixed(1)},${p[0].y.toFixed(1)}`;
+      for (let i = 1; i < RING; i++) {
+        const mx = (p[i].x + p[i + 1].x) / 2;
+        const my = (p[i].y + p[i + 1].y) / 2;
+        d += ` Q${p[i].x.toFixed(1)},${p[i].y.toFixed(1)} ${mx.toFixed(1)},${my.toFixed(1)}`;
+      }
+      d += ` L${p[RING].x.toFixed(1)},${p[RING].y.toFixed(1)}`;
+      strapPath.current?.setAttribute("d", d);
+
+      // presilha alinhada entre o anel e o topo do crachá
+      const clipAngle = (Math.atan2(p[TOP].y - p[RING].y, p[TOP].x - p[RING].x) * 180) / Math.PI - 90;
+      clip.current?.setAttribute("transform", `translate(${p[RING].x} ${p[RING].y}) rotate(${clipAngle}) scale(${system.scale})`);
+
+      // crachá: posição e ângulo saem do triângulo rígido
+      const angle = Math.atan2(p[BOTTOM_RIGHT].y - p[BOTTOM_LEFT].y, p[BOTTOM_RIGHT].x - p[BOTTOM_LEFT].x);
+      if (card.current) {
+        card.current.style.transform = `translate(${p[TOP].x}px, ${p[TOP].y}px) rotate(${angle}rad) scale(${system.scale}) translate(${-CARD_W / 2}px, 0)`;
+      }
+
+      // inclinação 3D proporcional à velocidade lateral
+      const vx = (p[BOTTOM_LEFT].x - p[BOTTOM_LEFT].px + p[BOTTOM_RIGHT].x - p[BOTTOM_RIGHT].px) / 2;
+      tilt += (Math.max(-30, Math.min(30, vx * 2.2)) - tilt) * 0.15;
+      if (tiltLayer.current) tiltLayer.current.style.transform = `perspective(1100px) rotateY(${tilt.toFixed(2)}deg)`;
+    };
+
+    const loop = (now: number) => {
+      frame = requestAnimationFrame(loop);
+      const system = rig.current;
+      const elapsed = Math.min((now - last) / 1000, 1 / 30);
+      last = now;
+      if (!system || !visible || !awake.current) return;
+      acc += elapsed;
+      while (acc >= STEP) {
+        const fastest = step(system, grab.current);
+        acc -= STEP;
+        still = !grab.current && fastest < 0.02 ? still + 1 : 0;
+      }
+      if (still > SLEEP_AFTER) awake.current = false;
+      render(system);
+    };
+
+    const resize = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      if (Math.abs(width - size.w) < 2 && Math.abs(height - size.h) < 2) return;
+      // primeira medida: queda; redimensionamentos depois: já pendurado
+      const first = size.w === 0;
+      size = { w: width, h: height };
+      rig.current = buildRig(width, height, first && !reduceMotion);
+      awake.current = true;
+      render(rig.current);
+    });
+    const viewport = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      last = performance.now();
+    });
+
+    resize.observe(el);
+    viewport.observe(el);
+    frame = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      viewport.disconnect();
+    };
+  }, [reduceMotion]);
+
+  const local = (event: PointerEvent) => {
+    const rect = stage.current!.getBoundingClientRect();
+    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+  };
+
+  const startCardDrag = (event: PointerEvent<HTMLDivElement>) => {
+    if (!rig.current) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    const { x, y } = local(event);
+    grab.current = { kind: "card", weights: cardWeights(rig.current, x, y), x, y };
+    press.current = { x: event.clientX, y: event.clientY, time: performance.now() };
+    awake.current = true;
+  };
+
+  const startStrapDrag = (event: PointerEvent<SVGPathElement>) => {
+    if (!rig.current) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    const { x, y } = local(event);
+    grab.current = { kind: "rope", index: nearestRopePoint(rig.current, x, y), x, y };
+    awake.current = true;
+  };
+
+  const moveDrag = (event: PointerEvent) => {
+    if (!grab.current) return;
+    const { x, y } = local(event);
+    grab.current.x = x;
+    grab.current.y = y;
+  };
+
+  const endCardDrag = (event: PointerEvent) => {
+    grab.current = null;
+    // toque curto e parado conta como clique: vira o crachá
+    const moved = Math.hypot(event.clientX - press.current.x, event.clientY - press.current.y);
+    if (moved < 6 && performance.now() - press.current.time < 350) setFlipped((value) => !value);
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      toggle();
+      setFlipped((value) => !value);
+    } else if ((event.key === "ArrowLeft" || event.key === "ArrowRight") && rig.current) {
+      event.preventDefault();
+      nudge(rig.current, event.key === "ArrowLeft" ? -10 : 10);
+      awake.current = true;
     }
   };
 
   return (
-    // queda ao abrir o site
-    <motion.div
-      className="relative w-[420px] max-w-full select-none"
-      style={{ height: STRAP_LENGTH + 470 }}
-      initial={reduceMotion ? false : { y: -900 }}
-      animate={{ y: 0 }}
-      transition={{ type: "spring", stiffness: 110, damping: 11, delay: 0.5 }}
-    >
-      {/* CORDÃO */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute top-0 overflow-hidden bg-[#ffd230] mask-[linear-gradient(to_bottom,transparent,black_90px)]"
-        style={{
-          left: `calc(50% - ${STRAP_WIDTH / 2}px)`,
-          width: STRAP_WIDTH,
-          height: strapLength,
-          rotate: strapAngle,
-          originX: 0.5,
-          originY: 0,
-        }}
-      >
-        <span className="absolute inset-x-0 bottom-0 flex justify-center [writing-mode:vertical-rl] rotate-180 font-impact text-[10px] tracking-[0.35em] text-[#0a0909]/70 whitespace-nowrap">
-          {"AMANDA FONSECA ✦ ".repeat(8)}
-        </span>
-      </motion.div>
+    <div ref={stage} className="badge-stage relative select-none">
+      {/* FITA + ANEL + PRESILHA */}
+      <svg aria-hidden="true" className="absolute inset-0 h-full w-full overflow-visible">
+        <defs>
+          <linearGradient id={`${strapId}-metal`} x1="0" x2="1">
+            <stop offset="0" stopColor="#8f8f8f" />
+            <stop offset="0.45" stopColor="#ececec" />
+            <stop offset="1" stopColor="#a5a5a5" />
+          </linearGradient>
+          {/* a fita "nasce" com fade no ponto de fixação */}
+          <linearGradient id={`${strapId}-fade`} gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="70">
+            <stop offset="0" stopColor="#000" />
+            <stop offset="1" stopColor="#fff" />
+          </linearGradient>
+          <mask id={`${strapId}-mask`} maskUnits="userSpaceOnUse" x="-3000" y="-3000" width="6000" height="6000">
+            <rect x="-3000" y="-3000" width="6000" height="6000" fill={`url(#${strapId}-fade)`} />
+          </mask>
+        </defs>
+        <g mask={`url(#${strapId}-mask)`}>
+          <path
+            ref={strapPath}
+            id={strapId}
+            fill="none"
+            stroke="#ffd230"
+            strokeWidth={28}
+            className="cursor-grab touch-none active:cursor-grabbing"
+            onPointerDown={startStrapDrag}
+            onPointerMove={moveDrag}
+            onPointerUp={() => (grab.current = null)}
+            onPointerCancel={() => (grab.current = null)}
+          />
+          <text className="pointer-events-none font-impact text-[10px] tracking-[0.35em]" fill="rgba(10,9,9,0.7)" dominantBaseline="central">
+            <textPath href={`#${strapId}`}>{STRAP_TEXT}</textPath>
+          </text>
+        </g>
+        <g ref={clip}>
+          <circle r={9} fill="none" stroke="#c9c9c9" strokeWidth={3.5} />
+          <rect x={-7} y={7} width={14} height={34} rx={2.5} fill={`url(#${strapId}-metal)`} stroke="rgba(0,0,0,0.25)" strokeWidth={0.75} />
+        </g>
+      </svg>
 
       {/* CRACHÁ */}
-      <motion.div
+      <div
+        ref={card}
         role="button"
         tabIndex={0}
         aria-pressed={flipped}
         aria-label={t("badge.ariaLabel")}
-        className="absolute cursor-grab active:cursor-grabbing rounded-[20px] outline-none focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-[#ffd230]"
-        style={{
-          top: STRAP_LENGTH,
-          left: `calc(50% - ${CARD_WIDTH / 2}px)`,
-          width: CARD_WIDTH,
-          x,
-          y,
-          rotate: badgeRotate,
-          originX: 0.5,
-          originY: 0,
-        }}
-        drag
-        dragSnapToOrigin
-        dragConstraints={{ left: -110, right: 110, top: -60, bottom: 50 }}
-        dragElastic={0.15}
-        dragTransition={{ bounceStiffness: 160, bounceDamping: 7 }}
-        onPointerDown={() => (dragged.current = false)}
-        onDragStart={() => (dragged.current = true)}
-        onClick={() => !dragged.current && toggle()}
+        className="absolute top-0 left-0 h-105 w-70 origin-top-left cursor-grab touch-none rounded-[20px] outline-none focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-[#ffd230] active:cursor-grabbing"
+        onPointerDown={startCardDrag}
+        onPointerMove={moveDrag}
+        onPointerUp={endCardDrag}
+        onPointerCancel={() => (grab.current = null)}
         onKeyDown={handleKeyDown}
       >
-        {/* PRESILHA */}
-        <div aria-hidden="true" className="flex flex-col items-center">
-          <div className="h-5 w-5 -mt-2 rounded-full border-[3px] border-[#c9c9c9] shadow-[inset_0_1px_2px_rgba(0,0,0,0.4)]" />
-          <div className="h-7 w-4 -mt-1 rounded-sm bg-linear-to-b from-[#e8e8e8] via-[#9a9a9a] to-[#d4d4d4] shadow-md" />
-        </div>
-
-        <motion.div
-          className="relative -mt-1 h-105 rounded-[20px] transform-3d"
-          style={{ rotateY, transformPerspective: 1100 }}
-        >
-          {/* FRENTE */}
+        <div ref={tiltLayer} className="h-full w-full transform-3d">
           <div
-            aria-hidden={flipped}
-            className="absolute inset-0 flex flex-col items-center overflow-hidden rounded-[20px] border border-black/5 bg-white px-6 pt-4 text-center text-[#111] shadow-[0_30px_70px_rgba(0,0,0,0.22)] backface-hidden"
+            className="relative h-full w-full rounded-[20px] transform-3d transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)]"
+            style={{ transform: `rotateY(${flipped ? 180 : 0}deg)` }}
           >
-            <span aria-hidden="true" className="h-2 w-12 rounded-full bg-[#111]/12" />
-            <p className="mt-4 font-body text-[17px] font-extrabold tracking-[-0.08em]">
-              AF<span className="text-[#e5b900]">.</span>
-            </p>
-            <div className="mt-4 h-[200px] w-[164px] overflow-hidden rounded-lg bg-[#e5e0d4]">
-              <img
-                src={photo}
-                alt={t("about.photoAlt")}
-                draggable={false}
-                className="h-full w-full object-cover scale-[1.75] origin-[53%_30%]"
+            {/* FRENTE */}
+            <div
+              aria-hidden={flipped}
+              className="absolute inset-0 flex flex-col items-center overflow-hidden rounded-[20px] border border-black/5 bg-white px-6 pt-4 text-center text-[#111] shadow-[0_30px_70px_rgba(0,0,0,0.22)] backface-hidden"
+            >
+              <span aria-hidden="true" className="h-2 w-12 rounded-full bg-[#111]/12" />
+              <p className="mt-4 font-body text-[17px] font-extrabold tracking-[-0.08em]">
+                AF<span className="text-[#e5b900]">.</span>
+              </p>
+              <div className="mt-4 h-[200px] w-[164px] overflow-hidden rounded-lg bg-[#e5e0d4]">
+                <img
+                  src={photo}
+                  alt={t("about.photoAlt")}
+                  draggable={false}
+                  className="h-full w-full object-cover scale-[1.75] origin-[53%_30%]"
+                />
+              </div>
+              <p className="mt-6 font-body text-[22px] font-bold leading-none tracking-[-0.03em]">{t("badge.name")}</p>
+              <span aria-hidden="true" className="mt-3 h-[2px] w-8 bg-[#ffd230]" />
+              <p className="mt-3 font-body text-[11px] font-semibold uppercase tracking-[0.22em] text-[#666]">{t("badge.role")}</p>
+              <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-3 bg-[#ffd230]" />
+            </div>
+
+            {/* VERSO */}
+            <div
+              aria-hidden={!flipped}
+              className="absolute inset-0 flex flex-col items-center rounded-[20px] bg-[#111] px-7 pt-4 pb-6 text-center text-white shadow-[0_30px_70px_rgba(0,0,0,0.3)] backface-hidden transform-[rotateY(180deg)]"
+            >
+              <span aria-hidden="true" className="h-2 w-12 rounded-full bg-white/15" />
+              <p className="mt-8 font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-[#ffd230]">{t("badge.focusLabel")}</p>
+              <p className="mt-3 font-title text-[1.6rem] leading-[1.15] text-balance">{t("badge.focus")}</p>
+              <span aria-hidden="true" className="mt-6 h-px w-10 bg-white/20" />
+              <p className="mt-6 font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-[#ffd230]">{t("badge.stackLabel")}</p>
+              <ul className="mt-3 flex flex-wrap justify-center gap-2">
+                {STACK.map((tech) => (
+                  <li key={tech} className="rounded-full border border-white/25 px-3 py-1 font-body text-xs text-white/85">
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+              <div
+                aria-hidden="true"
+                className="mt-auto h-8 w-full opacity-60 [background:repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_5px,#fff_5px_6px,transparent_6px_9px)]"
               />
             </div>
-            <p className="mt-6 font-body text-[22px] font-bold leading-none tracking-[-0.03em]">{t("badge.name")}</p>
-            <span aria-hidden="true" className="mt-3 h-[2px] w-8 bg-[#ffd230]" />
-            <p className="mt-3 font-body text-[11px] font-semibold uppercase tracking-[0.22em] text-[#666]">{t("badge.role")}</p>
-            <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-3 bg-[#ffd230]" />
           </div>
-
-          {/* VERSO */}
-          <div
-            aria-hidden={!flipped}
-            className="absolute inset-0 flex flex-col items-center rounded-[20px] bg-[#111] px-7 pt-4 pb-6 text-center text-white shadow-[0_30px_70px_rgba(0,0,0,0.3)] backface-hidden transform-[rotateY(180deg)]"
-          >
-            <span aria-hidden="true" className="h-2 w-12 rounded-full bg-white/15" />
-            <p className="mt-8 font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-[#ffd230]">{t("badge.focusLabel")}</p>
-            <p className="mt-3 font-title text-[1.6rem] leading-[1.15] text-balance">{t("badge.focus")}</p>
-            <span aria-hidden="true" className="mt-6 h-px w-10 bg-white/20" />
-            <p className="mt-6 font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-[#ffd230]">{t("badge.stackLabel")}</p>
-            <ul className="mt-3 flex flex-wrap justify-center gap-2">
-              {STACK.map((tech) => (
-                <li key={tech} className="rounded-full border border-white/25 px-3 py-1 font-body text-xs text-white/85">
-                  {tech}
-                </li>
-              ))}
-            </ul>
-            <div
-              aria-hidden="true"
-              className="mt-auto h-8 w-full opacity-60 [background:repeating-linear-gradient(90deg,#fff_0_2px,transparent_2px_5px,#fff_5px_6px,transparent_6px_9px)]"
-            />
-          </div>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </div>
+      </div>
+    </div>
   );
 }

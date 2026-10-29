@@ -7,13 +7,12 @@
   },
   "portfolioHero": {
     "eyebrow": "Full-Stack Developer · Fortaleza, Brazil",
-    "line1": "I turn ideas",
-    "line2": "into digital",
-    "highlight": "experiences.",
+    "line1": "Clean code,",
+    "line2": "interfaces that feel",
+    "rotating": ["alive.", "fluid.", "intuitive.", "effortless."],
     "description": "I build digital products by combining intuitive interfaces, software engineering, and artificial intelligence.",
     "projectsCta": "View projects",
     "cvCta": "Download CV"
-
   },
   "expertise": {
     "label": "Expertise",
@@ -79,7 +78,10 @@
   },
 
   "journey": {
-    "microTitle": "ACADÊMICA e PROFISSIONAL",
+    "present": "Present",
+    "educationLabel": "Education",
+    "workLabel": "Experience",
+    "microTitle": "ACADEMIC & PROFESSIONAL",
     "titleA": "MY",
     "titleB": "Academic and",
     "titleC": "Professional",

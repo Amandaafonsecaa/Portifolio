@@ -7,13 +7,12 @@
   },
   "portfolioHero": {
     "eyebrow": "Desenvolvedora Full-Stack · Fortaleza, Brasil",
-    "line1": "Eu transformo ideias",
-    "line2": "em experiências",
-    "highlight": "digitais.",
+    "line1": "Código limpo,",
+    "line2": "interfaces que parecem",
+    "rotating": ["vivas.", "fluidas.", "intuitivas.", "naturais."],
     "description": "Construo produtos digitais unindo interfaces intuitivas, engenharia de software e inteligência artificial.",
     "projectsCta": "Ver projetos",
     "cvCta": "Baixar CV"
-
   },
   "expertise": {
     "label": "Expertise",
@@ -79,6 +78,9 @@
   },
 
   "journey": {
+    "present": "Atual",
+    "educationLabel": "Formação",
+    "workLabel": "Experiência",
     "titleA": "MINHA",
     "titleB": "Jornada",
     "titleC": "Acadêmica e",

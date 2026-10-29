@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import IdBadge from "../component/IdBadge";
+import Typewriter from "../component/Typewriter";
 
 export default function Banner() {
   const { t, i18n } = useTranslation();
@@ -23,7 +24,7 @@ export default function Banner() {
       </nav>
       <div className="hero-copy">
         <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .15 }} className="eyebrow">{t("portfolioHero.eyebrow")}</motion.p>
-        <motion.h1 style={{ y: titleY }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9, ease: [0.22, 1, 0.36, 1] }}>{t("portfolioHero.line1")}<br />{t("portfolioHero.line2")} <em>{t("portfolioHero.highlight")}</em></motion.h1>
+        <motion.h1 style={{ y: titleY }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9, ease: [0.22, 1, 0.36, 1] }}>{t("portfolioHero.line1")}<br />{t("portfolioHero.line2")} <em><Typewriter key={i18n.language} words={t("portfolioHero.rotating", { returnObjects: true }) as string[]} /></em></motion.h1>
         <motion.p className="hero-description" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .65, duration: .7 }}>{t("portfolioHero.description")}</motion.p>
         <motion.div className="hero-actions" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .8 }}><a className="primary-action" href="#projetos">{t("portfolioHero.projectsCta")} <span>↘</span></a><a className="secondary-action" href={cvUrl} download="Amanda_Fonseca_CV.pdf">{t("portfolioHero.cvCta")}</a></motion.div>
       </div>
