@@ -6,7 +6,7 @@ i18n
   .use(HttpBackend)
   .use(initReactI18next)
   .init({
-    lng: 'pt-BR',          // idioma padrão ao abrir
+    lng: 'en',          // idioma padrão ao abrir
     fallbackLng: 'en',     // se tradução não existir, usa inglês
     interpolation: {
       escapeValue: false   // React já protege contra XSS

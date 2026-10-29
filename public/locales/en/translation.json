@@ -132,5 +132,13 @@
     "p3Start": "Currently, I'm expanding into the field of",
     "p3Highlight": "AI",
     "p3End": "where I've discovered a strong affinity and growing passion."
+  },
+  "badge": {
+    "name": "Amanda Fonseca",
+    "role": "Full-Stack Developer",
+    "focusLabel": "Focus",
+    "focus": "Creative application development to delight users",
+    "stackLabel": "Core stack",
+    "ariaLabel": "Amanda Fonseca's ID badge. Press to flip."
   }
 }
